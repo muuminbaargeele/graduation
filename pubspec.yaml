@@ -1,0 +1,28 @@
+name: graduation
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=2.19.5 <3.0.0'
+
+dependencies:
+  country_flags: ^2.0.0
+  flutter:
+    sdk: flutter
+  flutter_easyloading: ^3.0.5
+  font_awesome_flutter: ^10.4.0
+  geocoding: ^2.1.0
+  geolocator: ^9.0.2
+  google_fonts: ^4.0.4
+  permission_handler: ^10.2.0
+  pin_code_fields: ^7.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
