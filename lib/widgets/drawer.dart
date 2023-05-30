@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation/screens/complaints.dart';
 import 'package:graduation/screens/profile.dart';
 
 import '../screens/home.dart';
@@ -97,6 +98,23 @@ class DrawerWidgit extends StatelessWidget {
                 padding: (selectedbutton == "home") ? 10 : 0,
                 selectedColor:
                     (selectedbutton == "home") ? Colors.white : Colors.black,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SelectButton(
+                text: "Complaints",
+                backgroundColor: (selectedbutton == "complaints")
+                    ? Color(0xff0084FF)
+                    : Colors.white,
+                icon: Icons.folder_copy_rounded,
+                ontap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => ComplaintsScreen()));
+                },
+                padding: (selectedbutton == "complaints") ? 10 : 0,
+                selectedColor:
+                    (selectedbutton == "complaints") ? Colors.white : Colors.black,
               ),
               SizedBox(
                 height: 20,
