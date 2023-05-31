@@ -11,6 +11,7 @@ class PrimryButton extends StatelessWidget {
     required this.ontap,
     this.icon,
     this.iconclr,
+    this.isLoading,
   });
 
   final String btntext;
@@ -20,6 +21,7 @@ class PrimryButton extends StatelessWidget {
   final Function() ontap;
   final IconData? icon;
   final Color? iconclr;
+  final bool? isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +40,23 @@ class PrimryButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  btntext,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: fontclr,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
-                ),
+                isLoading ?? false
+                    ? SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        btntext,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: fontclr,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                      ),
                 SizedBox(
                   width: 10,
                 ),

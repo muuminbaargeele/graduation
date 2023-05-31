@@ -15,6 +15,7 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   google_fonts: ^4.0.4
+  http: ^1.0.0
   permission_handler: ^10.2.0
   pin_code_fields: ^7.4.0
 
