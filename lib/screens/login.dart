@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/databases/services.dart';
 import 'package:graduation/screens/home.dart';
 import 'package:graduation/screens/signup.dart';
 import 'package:graduation/widgets/primarybutton.dart';
 
-import '../widgets/errorcatch.dart';
+import '../widgets/mytextfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
         // Process the response data
         if (responseData == "Success") {
           print('Login successful! Response: $responseData');
+          EasyLoading.showSuccess('Great Success!',
+              maskType: EasyLoadingMaskType.black);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => HomeScreen()),
@@ -90,97 +93,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 45,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: usernameError.isEmpty
-                                  ? null
-                                  : Border.all(color: Colors.redAccent),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15.0),
-                                  child: FaIcon(
-                                    FontAwesomeIcons.solidUser,
-                                    size: 20,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 3),
-                                    child: TextField(
-                                      controller: usernameController,
-                                      style: TextStyle(fontSize: 12),
-                                      decoration: InputDecoration(
-                                          hintText: "Username",
-                                          border: InputBorder.none),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ErrorCatch(errorName: usernameError)
-                        ],
+                      MyTextField(
+                        controller: usernameController,
+                        errorName: usernameError,
+                        padding: 25.0,
+                        icon: FontAwesomeIcons.solidUser,
+                        text: "Username",
+                        textInputType: TextInputType.name,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: usernameError.isEmpty ? 25.0 : 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                border: passwordError.isEmpty
-                                    ? null
-                                    : Border.all(color: Colors.redAccent),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    child: FaIcon(
-                                      FontAwesomeIcons.lock,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(bottom: 3),
-                                      child: TextField(
-                                        controller: passwordController,
-                                        style: TextStyle(fontSize: 12),
-                                        decoration: InputDecoration(
-                                            hintText: "Password",
-                                            border: InputBorder.none),
-                                        obscureText: true,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            ErrorCatch(errorName: passwordError)
-                          ],
-                        ),
-                      ),
+                      MyTextField(
+                          controller: passwordController,
+                          errorName: passwordError,
+                          padding: 25.0,
+                          icon: FontAwesomeIcons.lock,
+                          text: "Password",
+                          textInputType: TextInputType.visiblePassword,
+                          isPassword: true,
+                          topPaddingError: usernameError),
                     ],
                   ),
                   Padding(

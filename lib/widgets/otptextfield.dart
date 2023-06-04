@@ -3,8 +3,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class AdvancedOtpTextField extends StatelessWidget {
   final ValueChanged<String> onOtpEntered;
+  final bool error;
 
-  AdvancedOtpTextField({required this.onOtpEntered});
+  AdvancedOtpTextField({required this.onOtpEntered, required this.error});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +19,11 @@ class AdvancedOtpTextField extends StatelessWidget {
         fieldHeight: 60.0,
         fieldWidth: 60.0,
         activeFillColor: Colors.white,
-        selectedColor: Colors.blue,
+        selectedColor: error ? Colors.red : Colors.blue,
         selectedFillColor: Colors.white.withOpacity(0.1),
-        inactiveColor: Colors.white,
+        inactiveColor: error ? Colors.red : Colors.white,
         inactiveFillColor: Colors.white,
-        activeColor: Colors.blue,
+        activeColor: error ? Colors.red : Colors.blue,
         borderWidth: 2.0,
       ),
       cursorColor: Colors.blue,
