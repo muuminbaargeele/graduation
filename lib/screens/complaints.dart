@@ -109,7 +109,7 @@ class ComplaintsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> titles = [
       "HealthCare",
-      "Traffic",
+      "Traffic Jam",
       "Education",
       "Waste Management",
       "Police Safety",

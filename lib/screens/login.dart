@@ -5,6 +5,7 @@ import 'package:graduation/databases/services.dart';
 import 'package:graduation/screens/home.dart';
 import 'package:graduation/screens/signup.dart';
 import 'package:graduation/widgets/primarybutton.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../widgets/mytextfield.dart';
 
@@ -21,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String usernameError = "";
   String passwordError = "";
   bool isLoading = false;
+  late Box box;
 
   loginValidate(username, pass) async {
     setState(() {
@@ -33,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading = true;
         });
-        final responseData = await login(username, pass);
+        final responseData = await login(username, pass, box);
         // Process the response data
         if (responseData == "Success") {
           print('Login successful! Response: $responseData');
@@ -59,6 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Login failed or error occurred. Error: $error');
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box('local_storage');
   }
 
   @override

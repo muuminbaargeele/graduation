@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation/databases/services.dart';
+import 'package:graduation/models/complainttypesmodel.dart';
 import 'package:graduation/screens/complain.dart';
 
+import '../models/districtModel.dart';
 import '../widgets/complaintsbox.dart';
 import '../widgets/drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<ComplaintTypes> complaintTypes = [];
+  List<Districts> districts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch districts and update the state
+    fetchDistricts().then((fetchedDistricts) {
+      setState(() {
+        districts = fetchedDistricts;
+      });
+    });
+    // Fetch ComplaintTypes and update the state
+    fetchComplaintTypes().then((fetchComplaintTypes) {
+      setState(() {
+        complaintTypes = fetchComplaintTypes;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> titles = [
-      "HealthCare",
-      "Traffic",
-      "Education",
-      "Waste Management",
-      "Police Safety",
-      "Firefight",
-      "Law Enforcement",
-      "Infrastructure",
-      "Disability rights",
-      "Taxation",
-    ];
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -73,33 +89,37 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: titles.length, // Number of items
-                  itemBuilder: (context, index) {
-                    return ComplaintsBox(
-                      text: titles[index],
-                      image: "assets/images/${titles[index]}.jpg",
-                      ontap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ComplainScreen(
-                                      complaint: [
-                                        titles[index],
-                                        "heroimage${index}"
-                                      ],
-                                    )));
-                      },
-                      heroimage: "heroimage${index}",
-                    );
-                  },
-                ),
-              ))
+                  child: complaintTypes.isEmpty
+                      ? Center(child: CircularProgressIndicator())
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                            ),
+                            itemCount: complaintTypes.length, // Number of items
+                            itemBuilder: (context, index) {
+                              return ComplaintsBox(
+                                text: complaintTypes[index].name,
+                                image:
+                                    "assets/images/${complaintTypes[index].name}.jpg",
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => ComplainScreen(
+                                                heroimage: "heroimage${index}",
+                                                complaintTypes: complaintTypes,
+                                                index: index,
+                                                districts: districts,
+                                              )));
+                                },
+                                heroimage: "heroimage${index}",
+                              );
+                            },
+                          ),
+                        ))
             ],
           ),
         ));

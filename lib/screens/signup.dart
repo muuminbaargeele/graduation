@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/models/districtModel.dart';
 import 'package:graduation/screens/login.dart';
 import 'package:graduation/screens/otp.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../databases/services.dart';
 import '../widgets/errorcatch.dart';
 import '../widgets/mytextfield.dart';
@@ -14,8 +15,6 @@ class SignupScreen extends StatefulWidget {
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
-
-
 
 class _SignupScreenState extends State<SignupScreen> {
   List<Districts> districts = []; // List to store the items for the dropdown
@@ -35,6 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String phoneError = "";
   String genderError = "";
   bool isLoading = false;
+  late Box box;
 
   validation(name, gmail, username, pass, district, phone, gender) {
     final RegExp nameRegex = RegExp(r'^[a-zA-Z ]+$');
@@ -92,8 +92,8 @@ class _SignupScreenState extends State<SignupScreen> {
         setState(() {
           isLoading = true;
         });
-        final responseData =
-            await SendOTP(name, gmail, username, pass, district, phone, gender);
+        final responseData = await SendOTP(
+            name, gmail, username, pass, district, phone, gender, box);
         // Process the response data
         if (responseData == "Success") {
           print('Auth successful! Response: $responseData');
@@ -125,6 +125,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     super.initState();
+    box = Hive.box('local_storage');
     // Fetch districts and update the state
     fetchDistricts().then((fetchedDistricts) {
       setState(() {

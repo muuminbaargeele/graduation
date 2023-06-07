@@ -10,21 +10,23 @@ class MyTextField extends StatelessWidget {
     required this.errorName,
     required this.controller,
     required this.text,
-    required this.icon,
+    this.icon,
     this.isPassword,
     required this.textInputType,
     required this.padding,
     this.isPhone,
+    this.height,
   });
 
   final String? topPaddingError;
   final String errorName;
   final TextEditingController controller;
   final String text;
-  final IconData icon;
+  final IconData? icon;
   final bool? isPassword;
   final TextInputType textInputType;
   final double padding;
+  final double? height;
   final bool? isPhone;
 
   @override
@@ -38,7 +40,7 @@ class MyTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 45,
+            height: height ?? 45,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -48,17 +50,22 @@ class MyTextField extends StatelessWidget {
                   : Border.all(color: Colors.redAccent),
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: icon == null
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Container(
-                    height: double.infinity,
-                    width: 30,
-                    child: Center(
-                      child: FaIcon(
-                        icon,
-                        size: 20,
+                  child: Visibility(
+                    visible: icon != null,
+                    child: Container(
+                      height: double.infinity,
+                      width: 30,
+                      child: Center(
+                        child: FaIcon(
+                          icon,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),

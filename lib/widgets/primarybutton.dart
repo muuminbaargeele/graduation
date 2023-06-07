@@ -12,6 +12,7 @@ class PrimryButton extends StatelessWidget {
     this.icon,
     this.iconclr,
     this.isLoading,
+    this.textSize,
   });
 
   final String btntext;
@@ -22,6 +23,7 @@ class PrimryButton extends StatelessWidget {
   final IconData? icon;
   final Color? iconclr;
   final bool? isLoading;
+  final double? textSize;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class PrimryButton extends StatelessWidget {
       color: color,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
-        onTap: ontap,
+        onTap: isLoading ?? false ? null : ontap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
           width: width,
@@ -54,7 +56,7 @@ class PrimryButton extends StatelessWidget {
                         style: TextStyle(
                           color: fontclr,
                           fontWeight: FontWeight.w600,
-                          fontSize: 20,
+                          fontSize: textSize == null ? 20 : textSize,
                         ),
                       ),
                 SizedBox(
