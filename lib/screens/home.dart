@@ -38,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Container(
-                height: 45,
+                height: v * 0.0518,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -71,16 +73,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      padding: EdgeInsets.symmetric(horizontal: h * 0.0365),
                       child: FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
-                        size: 16,
+                        size: v * 0.01844,
                         color: Colors.black.withOpacity(0.5),
                       ),
                     ),
                     Expanded(
                       child: TextField(
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: v * 0.01614),
                         decoration: InputDecoration(
                             hintText: "Search", border: InputBorder.none),
                       ),
@@ -92,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: complaintTypes.isEmpty
                       ? Center(child: CircularProgressIndicator())
                       : Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: EdgeInsets.only(top: v * 0.023),
                           child: GridView.builder(
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(

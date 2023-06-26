@@ -14,26 +14,27 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double vh = MediaQuery.of(context).size.height;
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(icon),
+          SizedBox(height: vh * 0.3344, child: Image.asset(icon)),
           Padding(
-            padding: const EdgeInsets.only(top: 66.0),
+            padding: EdgeInsets.only(top: vh * 0.076),
             child: Column(
               children: [
                 Text(
                   title,
                   style: TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                      fontSize: vh * 0.0346, fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.only(top: vh * 0.0115),
                   child: Text(
                     disc,
-                    style: TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: vh * 0.015),
                     textAlign: TextAlign.center,
                   ),
                 ),

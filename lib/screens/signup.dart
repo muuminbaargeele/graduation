@@ -136,20 +136,22 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double v = MediaQuery.of(context).size.height;
+    double h = MediaQuery.of(context).size.width;
     return Scaffold(
         body: SingleChildScrollView(
       child: SizedBox(
-        height: height,
+        height: v,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 20),
+          padding:
+              EdgeInsets.symmetric(horizontal: h * 0.066, vertical: v * 0.023),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 40),
+                    padding: EdgeInsets.only(top: v * 0.046),
                     child: Text(
                       "Sign up",
                       style: TextStyle(
@@ -161,7 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   MyTextField(
                     controller: nameController,
                     errorName: nameError,
-                    padding: 15.0,
+                    padding: v * 0.017,
                     icon: FontAwesomeIcons.solidFileLines,
                     text: "Name",
                     textInputType: TextInputType.name,
@@ -169,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   MyTextField(
                       controller: gmailController,
                       errorName: gmailError,
-                      padding: 15.0,
+                      padding: v * 0.017,
                       icon: FontAwesomeIcons.solidEnvelope,
                       text: "Gmail",
                       textInputType: TextInputType.emailAddress,
@@ -177,7 +179,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   MyTextField(
                     controller: usernameController,
                     errorName: usernameError,
-                    padding: 15.0,
+                    padding: v * 0.017,
                     icon: FontAwesomeIcons.solidUser,
                     text: "Username",
                     textInputType: TextInputType.name,
@@ -186,7 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   MyTextField(
                       controller: passwordController,
                       errorName: passwordError,
-                      padding: 15.0,
+                      padding: v * 0.017,
                       icon: FontAwesomeIcons.lock,
                       text: "Password",
                       textInputType: TextInputType.visiblePassword,
@@ -197,9 +199,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: passwordError.isEmpty ? 15 : 8.0),
+                            top: passwordError.isEmpty ? v * 0.017 : v * 0.01),
                         child: Container(
-                          height: 45,
+                          height: v * 0.052,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -212,33 +214,33 @@ class _SignupScreenState extends State<SignupScreen> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                    EdgeInsets.symmetric(horizontal: h * 0.02),
                                 child: Container(
                                   height: double.infinity,
-                                  width: 30,
+                                  width: h * 0.073,
                                   child: Center(
                                     child: FaIcon(
                                       FontAwesomeIcons.mapLocationDot,
-                                      size: 20,
+                                      size: v * 0.023,
                                     ),
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 18.0),
+                                  padding: EdgeInsets.only(right: h * 0.0438),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton<Districts>(
                                       value: selectedDistrict,
                                       isExpanded: true,
                                       icon: FaIcon(
                                         FontAwesomeIcons.caretDown,
-                                        size: 14,
+                                        size: v * 0.016,
                                         color: Colors.black,
                                       ),
                                       hint: Text(
                                         'District',
-                                        style: TextStyle(fontSize: 12),
+                                        style: TextStyle(fontSize: v * 0.0138),
                                       ),
                                       onChanged: (newValue) {
                                         setState(() {
@@ -253,7 +255,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                           value: value,
                                           child: Text(
                                             value.name,
-                                            style: TextStyle(fontSize: 12),
+                                            style:
+                                                TextStyle(fontSize: v * 0.0138),
                                           ),
                                         );
                                       }).toList(),
@@ -271,7 +274,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   MyTextField(
                     controller: phoneController,
                     errorName: phoneError,
-                    padding: 15.0,
+                    padding: v * 0.017,
                     icon: FontAwesomeIcons.phone,
                     text: "Phone",
                     textInputType: TextInputType.phone,
@@ -283,9 +286,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: phoneError.isEmpty ? 15.0 : 8.0),
+                            top: phoneError.isEmpty ? v * 0.017 : v * 0.01),
                         child: Container(
-                          height: 45,
+                          height: v * 0.052,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -298,33 +301,33 @@ class _SignupScreenState extends State<SignupScreen> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                    EdgeInsets.symmetric(horizontal: h * 0.02),
                                 child: Container(
                                   height: double.infinity,
-                                  width: 30,
+                                  width: h * 0.073,
                                   child: Center(
                                     child: FaIcon(
                                       FontAwesomeIcons.venusMars,
-                                      size: 20,
+                                      size: v * 0.023,
                                     ),
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 18.0),
+                                  padding: EdgeInsets.only(right: h * 0.0438),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton<String>(
                                       value: selectedGender,
                                       isExpanded: true,
                                       icon: FaIcon(
                                         FontAwesomeIcons.caretDown,
-                                        size: 14,
+                                        size: v * 0.016,
                                         color: Colors.black,
                                       ),
                                       hint: Text(
                                         'Gender',
-                                        style: TextStyle(fontSize: 12),
+                                        style: TextStyle(fontSize: v * 0.0138),
                                       ),
                                       onChanged: (String? newValue) {
                                         setState(() {
@@ -338,7 +341,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                           value: value,
                                           child: Text(
                                             value,
-                                            style: TextStyle(fontSize: 12),
+                                            style:
+                                                TextStyle(fontSize: v * 0.0138),
                                           ),
                                         );
                                       }).toList(),
@@ -354,7 +358,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
+                    padding: EdgeInsets.only(top: v * 0.057),
                     child: PrimryButton(
                         btntext: "Sign up",
                         fontclr: Colors.white,
@@ -383,8 +387,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Text(
                     "Alredy have an account?",
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
+                        fontWeight: FontWeight.w600, fontSize: v * 0.016),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -396,9 +399,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Text(
                         "Log in",
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff0084FF),
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff0084FF),
+                            fontSize: v * 0.016),
                       ),
                     ),
                   ),

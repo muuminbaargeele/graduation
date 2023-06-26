@@ -18,8 +18,8 @@ class CustomAlert extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
-              image:
-                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+              image: DecorationImage(
+                  image: NetworkImage(image), fit: BoxFit.cover),
             ),
           ),
         ),

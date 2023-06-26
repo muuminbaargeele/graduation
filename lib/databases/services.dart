@@ -1,7 +1,9 @@
 import 'package:graduation/models/complainttypesmodel.dart';
+import 'package:graduation/models/usermodel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../models/complaintsmodel.dart';
 import '../models/districtModel.dart';
 
 const String urls = "https://baargeelle.com"; // Host url
@@ -140,7 +142,7 @@ Future<List<ComplaintTypes>> fetchComplaintTypes() async {
 }
 
 // Upload Image API
-Future<void> uploadImage(String imagePath) async {
+Future uploadImage(String imagePath) async {
   var request = http.MultipartRequest(
     'POST',
     Uri.parse('${urls}/backEnd/upload.php'), // Replace with your API endpoint
@@ -156,6 +158,7 @@ Future<void> uploadImage(String imagePath) async {
   var response = await request.send();
   if (response.statusCode == 200) {
     print('Image uploaded successfully');
+    return true;
   } else {
     print('Failed to upload image');
   }
@@ -186,6 +189,67 @@ Future<String> submitComplaint(username, compTypeID, dateTime, compDesc,
       final responseData = jsonDecode(response.body);
       // Process the response data as needed
       return responseData;
+    } else {
+      // Error handling for unsuccessful login
+      print('Login failed. Status code: ${response.statusCode}');
+      throw Exception(
+          'Login failed'); // Throw an exception to indicate login failure
+    }
+  } catch (error) {
+    // Error handling for network request
+    print('An error occurred: $error');
+    throw Exception(
+        'An error occurred'); // Throw an exception to indicate network error
+  }
+}
+
+// Get Complaints API
+Future<List<Complaints>> fetchComplaints(username) async {
+  final url = '${urls}/backEnd/get_complaints.php';
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      body: {
+        'Username': username,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Successful 
+      final data = response.body;
+      return complaintsFromJson(data);
+    } else {
+      // Error handling for unsuccessful login
+      print('Login failed. Status code: ${response.statusCode}');
+      throw Exception(
+          'Login failed'); // Throw an exception to indicate login failure
+    }
+  } catch (error) {
+    // Error handling for network request
+    print('An error occurred: $error');
+    throw Exception(
+        'An error occurred'); // Throw an exception to indicate network error
+  }
+}
+
+
+// Get User API
+Future<List<User>> fetchuser(username) async {
+  final url = '${urls}/backEnd/get_user.php';
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      body: {
+        'Username': username,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Successful 
+      final data = response.body;
+      return userFromJson(data);
     } else {
       // Error handling for unsuccessful login
       print('Login failed. Status code: ${response.statusCode}');

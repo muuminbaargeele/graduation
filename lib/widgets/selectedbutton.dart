@@ -20,6 +20,8 @@ class SelectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Material(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(8),
@@ -27,7 +29,7 @@ class SelectButton extends StatelessWidget {
         onTap: ontap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          height: 45,
+          height: v * 0.052,
           width: double.infinity,
           decoration: BoxDecoration(),
           child: Padding(
@@ -36,16 +38,16 @@ class SelectButton extends StatelessWidget {
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               FaIcon(
                 icon,
-                size: 27,
+                size: v * 0.0311,
                 color: selectedColor,
               ),
               SizedBox(
-                width: 20,
+                width: h * 0.0486,
               ),
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: v * 0.0207,
                   fontWeight: FontWeight.w600,
                   color: selectedColor,
                 ),

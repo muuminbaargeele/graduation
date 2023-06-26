@@ -9,28 +9,33 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60.0),
+      padding: EdgeInsets.symmetric(vertical: v * 0.07),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image.asset("assets/images/logo.png"),
+          SizedBox(
+              height: v * 0.346, child: Image.asset("assets/images/logo.png")),
           SizedBox(
             width: double.infinity,
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(bottom: v * 0.012),
                   child: Text(
                     "Welcome",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: v * 0.035, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Text(
                   "In order to submit a complaint through our application,\n you will need to register for an account first.",
                   style: TextStyle(
-                      fontSize: 12, color: Colors.black.withOpacity(0.5)),
+                      fontSize: v * 0.014,
+                      color: Colors.black.withOpacity(0.5)),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -42,32 +47,32 @@ class WelcomeScreen extends StatelessWidget {
                 btntext: "Log in",
                 color: Color(0xff0084FF),
                 fontclr: Colors.white,
-                width: 284,
+                width: h * 0.7,
                 ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => LoginScreen()));
                 },
               ),
               Container(
-                height: 30,
-                width: 284,
+                height: v * 0.035,
+                width: h * 0.7,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       height: 1,
-                      width: 113,
+                      width: h * 0.275,
                       color: Colors.black,
                     ),
                     Text(
                       "or",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          fontSize: v * 0.016, fontWeight: FontWeight.w600),
                     ),
                     Container(
                       height: 1,
-                      width: 113,
+                      width: h * 0.275,
                       color: Colors.black,
                     ),
                   ],
@@ -77,7 +82,7 @@ class WelcomeScreen extends StatelessWidget {
                 btntext: "Sign up",
                 color: Colors.white,
                 fontclr: Colors.black,
-                width: 284,
+                width: h * 0.7,
                 ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => SignupScreen()));

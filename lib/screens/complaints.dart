@@ -1,14 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation/models/complaintsmodel.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../databases/services.dart';
 import '../widgets/complaininfo.dart';
 import '../widgets/customalert.dart';
 import '../widgets/drawer.dart';
 import '../widgets/listbox.dart';
 
-class ComplaintsScreen extends StatelessWidget {
+class ComplaintsScreen extends StatefulWidget {
   const ComplaintsScreen({super.key});
 
-  showAlertDialog(BuildContext context, title, image, status) {
+  @override
+  State<ComplaintsScreen> createState() => _ComplaintsScreenState();
+}
+
+class _ComplaintsScreenState extends State<ComplaintsScreen> {
+  late Box box;
+  List<Complaints> complaints = [];
+  bool isLoading = true;
+  Timer? timer;
+
+  showAlertDialog(BuildContext context, index) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.transparent,
@@ -30,8 +45,9 @@ class ComplaintsScreen extends StatelessWidget {
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(10)),
                 child: CustomAlert(
-                  text: title,
-                  image: image,
+                  text: complaints[index].ctname,
+                  image:
+                      "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
                 ),
               ),
               Expanded(
@@ -41,19 +57,19 @@ class ComplaintsScreen extends StatelessWidget {
                     children: [
                       ComplainInfo(
                         title: "Complaint Type",
-                        info: "Waste Management",
+                        info: complaints[index].ctname,
                       ),
                       ComplainInfo(
                         title: "District",
-                        info: "Wadajir",
+                        info: complaints[index].dname,
                       ),
                       ComplainInfo(
                         title: "Address",
-                        info: "Suuqa Weyn",
+                        info: complaints[index].address,
                       ),
                       ComplainInfo(
                         title: "Description",
-                        info: "Gurigeyga Hortisa Waxa Lagu So daadiyay Qashin",
+                        info: complaints[index].compDesc,
                       ),
                       ComplainInfo(
                         title: "Date",
@@ -76,10 +92,13 @@ class ComplaintsScreen extends StatelessWidget {
                               SizedBox(
                                 width: 135,
                                 child: Text(
-                                  status,
+                                  complaints[index].sname,
                                   style: TextStyle(
                                       fontSize: 10,
-                                      color: Color(0xffFF0000),
+                                      color: Color(int.parse(
+                                              complaints[index].hexCode,
+                                              radix: 16) +
+                                          0xFF000000),
                                       fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.right,
                                 ),
@@ -106,20 +125,32 @@ class ComplaintsScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    List<String> titles = [
-      "HealthCare",
-      "Traffic Jam",
-      "Education",
-      "Waste Management",
-      "Police Safety",
-      "Firefight",
-      "Law Enforcement",
-      "Infrastructure",
-      "Disability rights",
-      "Taxation",
-    ];
+  void initState() {
+    super.initState();
+    box = Hive.box('local_storage');
+    startAPICalls();
+  }
 
+  void startAPICalls() {
+    timer = Timer.periodic(Duration(seconds: 2), (Timer timer) {
+      callAPIFunction();
+    });
+  }
+
+  callAPIFunction() {
+    String username = box.get("username");
+    // Fetch compliaints and update the state
+    fetchComplaints(username).then((fetchComplaints) {
+      setState(() {
+        complaints = fetchComplaints;
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff0084FF),
@@ -127,7 +158,7 @@ class ComplaintsScreen extends StatelessWidget {
         title: Text(
           "Complaints",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: v * 0.0276,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -153,12 +184,12 @@ class ComplaintsScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               Container(
-                height: 70,
+                height: v * 0.0807,
                 width: double.infinity,
                 color: Color(0xff0084FF),
               ),
               Container(
-                height: 40,
+                height: v * 0.0461,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Color(0xff7ABCFA),
@@ -168,29 +199,27 @@ class ComplaintsScreen extends StatelessWidget {
               )
             ],
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: titles.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                child: ListBox(
-                  title: titles[index],
-                  text:
-                      "The complaint has been fully investigated,  and closed,  indicating that no further action is required or possible.",
-                  image: "assets/images/${titles[index]}.jpg",
-                  status: "Closed",
-                  ontap: () {
-                    showAlertDialog(
-                      context,
-                      titles[index],
-                      "assets/images/${titles[index]}.jpg",
-                      "Closed",
-                    );
-                  },
-                ),
-              ),
-            ),
-          )
+          isLoading
+              ? Expanded(child: Center(child: CircularProgressIndicator()))
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: complaints.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                      child: ListBox(
+                        title: complaints[index].ctname,
+                        text: complaints[index].statusDesc,
+                        image:
+                            "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
+                        status: complaints[index].sname,
+                        hex: complaints[index].hexCode,
+                        ontap: () {
+                          showAlertDialog(context, index);
+                        },
+                      ),
+                    ),
+                  ),
+                )
         ],
       ),
     );

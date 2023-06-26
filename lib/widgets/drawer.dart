@@ -13,10 +13,13 @@ class DrawerWidgit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Drawer(
       backgroundColor: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+        padding:
+            EdgeInsets.symmetric(vertical: v * 0.0576, horizontal: h * 0.048),
         child: Container(
           // color: Colors.amber,
           child: Column(
@@ -27,13 +30,13 @@ class DrawerWidgit extends StatelessWidget {
                 child: FaIcon(FontAwesomeIcons.xmark),
               ),
               SizedBox(
-                height: 50,
+                height: v * 0.0576,
               ),
               Row(
                 children: [
                   Container(
-                    width: 60,
-                    height: 60,
+                    width: h * 0.146,
+                    height: v * 0.07,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.transparent,
@@ -44,11 +47,11 @@ class DrawerWidgit extends StatelessWidget {
                     child: Center(
                         child: FaIcon(
                       FontAwesomeIcons.userTie,
-                      size: 34,
+                      size: v * 0.04,
                     )),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: h * 0.024,
                   ),
                   Expanded(
                     child: Column(
@@ -58,14 +61,14 @@ class DrawerWidgit extends StatelessWidget {
                         Text(
                           "Faahim",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: v * 0.0207,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         Text(
                           "Faahim144@gmail.com",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: v * 0.01614,
                               fontWeight: FontWeight.w300,
                               color: Colors.black.withOpacity(0.5)),
                         )
@@ -75,7 +78,7 @@ class DrawerWidgit extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 25,
+                height: v * 0.0288,
               ),
               Container(
                 height: 1,
@@ -83,7 +86,7 @@ class DrawerWidgit extends StatelessWidget {
                 color: Colors.black,
               ),
               SizedBox(
-                height: 25,
+                height: v * 0.0288,
               ),
               SelectButton(
                 text: "Home",
@@ -109,15 +112,16 @@ class DrawerWidgit extends StatelessWidget {
                     : Colors.white,
                 icon: Icons.folder_copy_rounded,
                 ontap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ComplaintsScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ComplaintsScreen()));
                 },
                 padding: (selectedbutton == "complaints") ? 10 : 0,
-                selectedColor:
-                    (selectedbutton == "complaints") ? Colors.white : Colors.black,
+                selectedColor: (selectedbutton == "complaints")
+                    ? Colors.white
+                    : Colors.black,
               ),
               SizedBox(
-                height: 20,
+                height: v * 0.023,
               ),
               SelectButton(
                 text: "Profile",

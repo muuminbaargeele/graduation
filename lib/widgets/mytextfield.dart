@@ -31,16 +31,19 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
+    print(v);
     return Padding(
       padding: EdgeInsets.only(
           top: topPaddingError == null
               ? padding
-              : (topPaddingError!.isEmpty ? padding : 8.0)),
+              : (topPaddingError!.isEmpty ? padding : v * 0.009)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: height ?? 45,
+            height: height ?? v * 0.052,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -55,16 +58,16 @@ class MyTextField extends StatelessWidget {
                   : CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(horizontal: h * 0.02),
                   child: Visibility(
                     visible: icon != null,
                     child: Container(
                       height: double.infinity,
-                      width: 30,
+                      width: h * 0.073,
                       child: Center(
                         child: FaIcon(
                           icon,
-                          size: 20,
+                          size: v * 0.023,
                         ),
                       ),
                     ),
@@ -73,26 +76,30 @@ class MyTextField extends StatelessWidget {
                 Visibility(
                   visible: isPhone ?? false,
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(top: errorName.isEmpty ? 4.3 : 2.5),
+                    padding: EdgeInsets.only(
+                        top: errorName.isEmpty
+                            ? v * 0.00495718
+                            : v * 0.00288208),
                     child: Text(
                       "+252 ",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: v * 0.014),
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 3),
+                    padding: EdgeInsets.only(bottom: v * 0.0034585),
                     child: TextField(
                       controller: controller,
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: v * 0.014),
                       decoration: InputDecoration(
                         hintText: text,
                         border: InputBorder.none,
                       ),
                       obscureText: isPassword ?? false,
                       keyboardType: textInputType,
+                      maxLines: (text == "Description") ? 19 : 1,
+                      maxLength: (text == "Description") ? 500 : null,
                     ),
                   ),
                 ),

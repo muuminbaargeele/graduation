@@ -10,12 +10,12 @@ class ErrorCatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
     return Visibility(
       visible: errorName.isNotEmpty,
       child: Text(
         errorName,
-        style: TextStyle(
-            fontSize: 12, color: Colors.redAccent),
+        style: TextStyle(fontSize: v * 0.013834, color: Colors.redAccent),
       ),
     );
   }

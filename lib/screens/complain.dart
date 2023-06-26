@@ -65,7 +65,6 @@ class _ComplainScreenState extends State<ComplainScreen> {
         setState(() {
           isLoading = true;
         });
-        uploadImage(imageFile!.path);
         final responseData = await submitComplaint(
             box.get("username"),
             widget.complaintTypes[widget.index].compTypeId,
@@ -74,8 +73,9 @@ class _ComplainScreenState extends State<ComplainScreen> {
             image,
             district,
             address);
+        final imageResponse = await uploadImage(imageFile!.path);
         // Process the response data
-        if (responseData == "Success") {
+        if (responseData == "Success" && imageResponse == true) {
           print('Auth successful! Response: $responseData');
           EasyLoading.showSuccess('Submit Success!',
               maskType: EasyLoadingMaskType.black);
@@ -182,13 +182,14 @@ class _ComplainScreenState extends State<ComplainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         body: SingleChildScrollView(
           child: SizedBox(
-            height: height,
+            height: v,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -199,7 +200,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                         Hero(
                           tag: widget.heroimage,
                           child: Container(
-                            height: 270,
+                            height: v * 0.31126,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -216,7 +217,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                           left: 0,
                           right: 0,
                           child: Container(
-                            height: 140,
+                            height: v * 0.1614,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
@@ -237,7 +238,8 @@ class _ComplainScreenState extends State<ComplainScreen> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                              padding: EdgeInsets.fromLTRB(
+                                  h * 0.0486, 0, 0, v * 0.0115),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -245,17 +247,17 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                   Text(
                                     widget.complaintTypes[widget.index].name,
                                     style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: v * 0.0276,
                                       color: Colors.white,
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 300,
+                                    width: h * 0.73,
                                     child: Text(
                                       widget.complaintTypes[widget.index]
                                           .compTypeDisc,
                                       style: TextStyle(
-                                        fontSize: 10,
+                                        fontSize: v * 0.0115,
                                         color: Colors.white.withOpacity(0.5),
                                       ),
                                     ),
@@ -268,15 +270,15 @@ class _ComplainScreenState extends State<ComplainScreen> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                          vertical: v * 0.035, horizontal: h * 0.048),
                       child: Column(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                height: 45,
+                                height: v * 0.0518,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -288,15 +290,15 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: h * 0.02),
                                       child: Container(
                                         height: double.infinity,
-                                        width: 30,
+                                        width: h * 0.073,
                                         child: Center(
                                           child: FaIcon(
                                             FontAwesomeIcons.mapLocationDot,
-                                            size: 20,
+                                            size: v * 0.023,
                                           ),
                                         ),
                                       ),
@@ -304,19 +306,20 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                     Expanded(
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 18.0),
+                                            EdgeInsets.only(right: h * 0.0438),
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton<Districts>(
                                             value: selectedDistrict,
                                             isExpanded: true,
                                             icon: FaIcon(
                                               FontAwesomeIcons.caretDown,
-                                              size: 14,
+                                              size: v * 0.01614,
                                               color: Colors.black,
                                             ),
                                             hint: Text(
                                               'District',
-                                              style: TextStyle(fontSize: 12),
+                                              style: TextStyle(
+                                                  fontSize: v * 0.0138),
                                             ),
                                             onChanged: (newValue) {
                                               setState(() {
@@ -334,8 +337,8 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                                 value: value,
                                                 child: Text(
                                                   value.name,
-                                                  style:
-                                                      TextStyle(fontSize: 12),
+                                                  style: TextStyle(
+                                                      fontSize: v * 0.0138),
                                                 ),
                                               );
                                             }).toList(),
@@ -350,7 +353,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: v * 0.023,
                           ),
                           MyTextField(
                               errorName: addressError,
@@ -360,7 +363,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                               textInputType: TextInputType.streetAddress,
                               padding: 0),
                           SizedBox(
-                            height: 20,
+                            height: v * 0.023,
                           ),
                           MyTextField(
                             errorName: descError,
@@ -368,10 +371,10 @@ class _ComplainScreenState extends State<ComplainScreen> {
                             text: "Description",
                             textInputType: TextInputType.text,
                             padding: 0,
-                            height: 150,
+                            height: v * 0.173,
                           ),
                           SizedBox(
-                            height: 20,
+                            height: v * 0.023,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,7 +384,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                   showAlertDialog(context);
                                 },
                                 child: Container(
-                                  height: 45,
+                                  height: v * 0.0518,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
@@ -391,26 +394,26 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                           : Border.all(
                                               color: Colors.redAccent)),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: h * 0.0365),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         FaIcon(
                                           FontAwesomeIcons.upload,
-                                          size: 20,
+                                          size: v * 0.023,
                                         ),
                                         SizedBox(
-                                          width: 15,
+                                          width: h * 0.0365,
                                         ),
                                         SizedBox(
-                                          width: 200,
+                                          width: h * 0.486,
                                           child: Text(
                                             maxLines: 1,
                                             imageName ?? "Upload",
                                             style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: v * 0.0138,
                                                 color: Colors.black
                                                     .withOpacity(0.5)),
                                           ),
@@ -420,7 +423,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                             alignment: Alignment.centerRight,
                                             child: FaIcon(
                                               FontAwesomeIcons.camera,
-                                              size: 20,
+                                              size: v * 0.023,
                                             ),
                                           ),
                                         ),
@@ -438,8 +441,8 @@ class _ComplainScreenState extends State<ComplainScreen> {
                   ],
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: v * 0.035, horizontal: h * 0.0486),
                   child: PrimryButton(
                       btntext: "Submit",
                       fontclr: Colors.white,

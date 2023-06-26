@@ -3,7 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({
-    super.key, required this.icon, required this.title, required this.info,
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.info,
   });
 
   final IconData icon;
@@ -12,12 +15,13 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double vh = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: EdgeInsets.symmetric(vertical: vh * 0.004),
       child: Column(
         children: [
           Container(
-            height: 60,
+            height: vh * 0.06875,
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,9 +33,14 @@ class UserInfo extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: FaIcon(
-                        icon,
-                        size: 20,
+                      child: SizedBox(
+                        width: 20,
+                        child: Center(
+                          child: FaIcon(
+                            icon,
+                            size: 20,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -39,16 +48,15 @@ class UserInfo extends StatelessWidget {
                     ),
                     Text(
                       "${title}:",
-                      style: TextStyle(
-                          fontSize: 16, color: Colors.black),
+                      style:
+                          TextStyle(fontSize: vh * 0.018, color: Colors.black),
                     ),
                   ],
                 ),
                 Text(
                   info,
                   style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black.withOpacity(0.5)),
+                      fontSize: vh * 0.015, color: Colors.black.withOpacity(0.5)),
                 ),
               ],
             ),

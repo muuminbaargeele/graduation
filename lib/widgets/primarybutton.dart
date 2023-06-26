@@ -27,6 +27,8 @@ class PrimryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Material(
       color: color,
       borderRadius: BorderRadius.circular(8),
@@ -36,16 +38,16 @@ class PrimryButton extends StatelessWidget {
         child: Container(
           width: width,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
+            padding: EdgeInsets.symmetric(
+              vertical: v * 0.0115,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 isLoading ?? false
                     ? SizedBox(
-                        height: 30,
-                        width: 30,
+                        height: v * 0.035,
+                        width: h * 0.073,
                         child: CircularProgressIndicator(
                           color: Colors.white,
                         ),
@@ -56,7 +58,7 @@ class PrimryButton extends StatelessWidget {
                         style: TextStyle(
                           color: fontclr,
                           fontWeight: FontWeight.w600,
-                          fontSize: textSize == null ? 20 : textSize,
+                          fontSize: textSize == null ? v * 0.023 : textSize,
                         ),
                       ),
                 SizedBox(
@@ -66,7 +68,7 @@ class PrimryButton extends StatelessWidget {
                   visible: icon != null,
                   child: FaIcon(
                     icon,
-                    size: 20,
+                    size: v * 0.023,
                     color: iconclr,
                   ),
                 )

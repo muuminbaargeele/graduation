@@ -6,7 +6,6 @@ import 'package:graduation/screens/home.dart';
 import 'package:graduation/screens/signup.dart';
 import 'package:graduation/widgets/primarybutton.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import '../widgets/mytextfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -71,10 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 20),
+          padding:
+              EdgeInsets.symmetric(horizontal: h * 0.066, vertical: v * 0.023),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,10 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 60),
-                    child: Container(
-                      height: 120,
-                      width: 120,
+                    padding: EdgeInsets.only(top: v * 0.07),
+                    child: SizedBox(
+                      height: v * 0.138,
+                      width: h * 0.3,
                       child: Image.asset("assets/images/logo.png"),
                     ),
                   ),
@@ -94,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       "Log in",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: v * 0.035,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -104,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       MyTextField(
                         controller: usernameController,
                         errorName: usernameError,
-                        padding: 25.0,
+                        padding: v * 0.029,
                         icon: FontAwesomeIcons.solidUser,
                         text: "Username",
                         textInputType: TextInputType.name,
@@ -112,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       MyTextField(
                           controller: passwordController,
                           errorName: passwordError,
-                          padding: 25.0,
+                          padding: v * 0.029,
                           icon: FontAwesomeIcons.lock,
                           text: "Password",
                           textInputType: TextInputType.visiblePassword,
@@ -121,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
+                    padding: EdgeInsets.only(top: v * 0.057),
                     child: PrimryButton(
                         btntext: "Log in",
                         fontclr: Colors.white,
@@ -143,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Don’t have an account?",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
+                      fontSize: v * 0.016
                     ),
                   ),
                   Padding(
@@ -157,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Color(0xff0084FF),
+                          fontSize: v * 0.016
                         ),
                       ),
                     ),

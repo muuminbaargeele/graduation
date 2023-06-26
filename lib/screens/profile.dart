@@ -1,16 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation/models/usermodel.dart';
 import 'package:graduation/screens/login.dart';
 import 'package:graduation/widgets/primarybutton.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../databases/services.dart';
 import '../widgets/drawer.dart';
 import '../widgets/userinfo.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late Box box;
+  List<User> user = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box('local_storage');
+    callAPIFunction();
+  }
+
+  callAPIFunction() {
+    String username = box.get("username");
+    // Fetch compliaints and update the state
+    fetchuser(username).then((fetchuser) {
+      setState(() {
+        user = fetchuser;
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -39,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: 320,
+                height: v * 0.3375,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Color(0xff0084FF),
@@ -48,97 +80,107 @@ class ProfileScreen extends StatelessWidget {
                       bottomRight: Radius.circular(20),
                     )),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 80.0),
+                  padding: EdgeInsets.only(top: v * 0.092),
                   child: Column(
                     children: [
                       Container(
-                        width: 100,
-                        height: 100,
+                        width: h * 0.194,
+                        height: v * 0.092,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.transparent,
                             border: Border.all(
                               color: Colors.white,
-                              width: 3,
+                              width: h * 0.0072,
                             )),
                         child: Center(
                             child: FaIcon(
                           FontAwesomeIcons.userTie,
-                          size: 60,
+                          size: v * 0.057,
                           color: Colors.white,
                         )),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: v * 0.0125,
                       ),
-                      Text(
-                        "Faahim",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        "Faahim144@gmail.com",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white.withOpacity(0.5)),
-                      ),
+                      isLoading
+                          ? CircularProgressIndicator(
+                              color: Colors.white.withOpacity(0.5),
+                            )
+                          : Column(
+                              children: [
+                                Text(
+                                  user[0].name,
+                                  style: TextStyle(
+                                      fontSize: v * 0.018,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  user[0].gmail,
+                                  style: TextStyle(
+                                      fontSize: v * 0.015,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white.withOpacity(0.5)),
+                                ),
+                              ],
+                            ),
                     ],
                   ),
                 ),
               ),
               Positioned(
                 // bottom: -400,
-                top: 270,
+                top: v * 0.275,
                 left: 0,
                 right: 0,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: h * 0.0486),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 25),
+                      padding: EdgeInsets.symmetric(
+                          vertical: v * 0.035, horizontal: h * 0.0608),
                       child: Container(
-                        child: Column(
-                          children: [
-                            UserInfo(
-                              title: "Name",
-                              icon: FontAwesomeIcons.solidFileLines,
-                              info: "Faahim",
-                            ),
-                            UserInfo(
-                              title: "Gmail",
-                              icon: FontAwesomeIcons.solidEnvelope,
-                              info: "Faahim144@gmail.com",
-                            ),
-                            UserInfo(
-                              title: "Username",
-                              icon: FontAwesomeIcons.solidUser,
-                              info: "faahim144",
-                            ),
-                            UserInfo(
-                              title: "District",
-                              icon: FontAwesomeIcons.mapLocationDot,
-                              info: "Wadajir",
-                            ),
-                            UserInfo(
-                              title: "Phone",
-                              icon: FontAwesomeIcons.phone,
-                              info: "616848177",
-                            ),
-                            UserInfo(
-                              title: "Gender",
-                              icon: FontAwesomeIcons.venusMars,
-                              info: "Male",
-                            ),
-                          ],
-                        ),
+                        child: isLoading
+                            ? Center(child: CircularProgressIndicator())
+                            : Column(
+                                children: [
+                                  UserInfo(
+                                    title: "Name",
+                                    icon: FontAwesomeIcons.solidFileLines,
+                                    info: user[0].name,
+                                  ),
+                                  UserInfo(
+                                    title: "Gmail",
+                                    icon: FontAwesomeIcons.solidEnvelope,
+                                    info: user[0].gmail,
+                                  ),
+                                  UserInfo(
+                                    title: "Username",
+                                    icon: FontAwesomeIcons.solidUser,
+                                    info: user[0].username,
+                                  ),
+                                  UserInfo(
+                                    title: "District",
+                                    icon: FontAwesomeIcons.mapLocationDot,
+                                    info: user[0].dname,
+                                  ),
+                                  UserInfo(
+                                    title: "Phone",
+                                    icon: FontAwesomeIcons.phone,
+                                    info: user[0].phone,
+                                  ),
+                                  UserInfo(
+                                    title: "Gender",
+                                    icon: FontAwesomeIcons.venusMars,
+                                    info: user[0].gender,
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                   ),
@@ -147,7 +189,8 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                vertical: v * 0.035, horizontal: h * 0.0608),
             child: PrimryButton(
               btntext: "Log out",
               fontclr: Colors.white,

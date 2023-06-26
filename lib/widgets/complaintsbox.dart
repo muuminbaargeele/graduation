@@ -16,6 +16,7 @@ class ComplaintsBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Stack(
@@ -65,7 +66,7 @@ class ComplaintsBox extends StatelessWidget {
                     child: Text(
                       text,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: v * 0.019,
                         color: Colors.white,
                       ),
                     ),

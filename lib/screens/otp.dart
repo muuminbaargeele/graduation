@@ -56,9 +56,11 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.only(top: 170.0),
+      padding: EdgeInsets.only(top: v * 0.196),
       child: SizedBox(
         width: double.infinity,
         child: Column(
@@ -68,16 +70,16 @@ class _OtpPageState extends State<OtpPage> {
             Text(
               "Verification Code",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: v * 0.035,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(top: v * 0.01152),
               child: Text(
                 "Please type verification code send\nto ${widget.userGmail}",
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: v * 0.0138,
                     fontWeight: FontWeight.w400,
                     color: Colors.black.withOpacity(0.5)),
                 textAlign: TextAlign.center,
@@ -87,9 +89,9 @@ class _OtpPageState extends State<OtpPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 65.0),
+                  padding: EdgeInsets.only(top: v * 0.075),
                   child: SizedBox(
-                    width: 265,
+                    width: h * 0.6447,
                     child: AdvancedOtpTextField(
                       onOtpEntered: (enteredOtp) {
                         print("Code is " + enteredOtp);
@@ -105,12 +107,12 @@ class _OtpPageState extends State<OtpPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 40.0),
+              padding: EdgeInsets.only(top: v * 0.0461),
               child: PrimryButton(
                   btntext: "Verify",
                   fontclr: Colors.white,
                   color: Color(0xff0084FF),
-                  width: 265,
+                  width: h * 0.6447,
                   isLoading: isLoading,
                   ontap: () {
                     FocusScope.of(context).unfocus();

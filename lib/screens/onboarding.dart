@@ -219,6 +219,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     PageController _controller = PageController(
       initialPage: currentPage,
     );
@@ -237,7 +239,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 OnBoardingPage(icon: icon[0], title: title[0], disc: disc[0]),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: h * 0.049),
                   child: OnBoardingPage(
                       icon: icon[1], title: title[1], disc: disc[1]),
                 ),
@@ -246,7 +248,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
           ),
           Container(
-            height: 140,
+            height: v * 0.161,
             width: double.infinity,
             child: Center(
               child: Column(
@@ -269,23 +271,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             });
                           },
                           child: SizedBox(
-                            height: 38,
+                            height: v * 0.044,
                             child: Center(
                               child: Text(
                                 "Skip",
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.5),
-                                    fontSize: 20,
+                                    fontSize: v * 0.023,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
                   Padding(
-                    padding: EdgeInsets.only(top: 35),
+                    padding: EdgeInsets.only(top: v * 0.04),
                     child: Container(
-                      height: 6,
-                      width: 140,
+                      height: v * 0.007,
+                      width: h * 0.34,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -294,8 +296,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 duration: const Duration(milliseconds: 200),
                                 curve: Curves.easeInOut),
                             child: Container(
-                              height: 6,
-                              width: 40,
+                              height: v * 0.007,
+                              width: h * 0.1,
                               decoration: BoxDecoration(
                                   color: (currentPage == 0)
                                       ? Colors.black.withOpacity(0.5)
@@ -308,8 +310,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 duration: const Duration(milliseconds: 200),
                                 curve: Curves.easeInOut),
                             child: Container(
-                              height: 6,
-                              width: 40,
+                              height: v * 0.007,
+                              width: h * 0.1,
                               decoration: BoxDecoration(
                                   color: (currentPage == 1)
                                       ? Colors.black.withOpacity(0.5)
@@ -322,8 +324,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 duration: const Duration(milliseconds: 200),
                                 curve: Curves.easeInOut),
                             child: Container(
-                              height: 6,
-                              width: 40,
+                              height: v * 0.007,
+                              width: h * 0.1,
                               decoration: BoxDecoration(
                                   color: (currentPage == 2)
                                       ? Colors.black.withOpacity(0.5)

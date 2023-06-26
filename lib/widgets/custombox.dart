@@ -12,6 +12,7 @@ class CustomBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Positioned.fill(
@@ -19,8 +20,8 @@ class CustomBox extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
-              image:
-                  DecorationImage(image: AssetImage(images), fit: BoxFit.cover),
+              image: DecorationImage(
+                  image: NetworkImage(images), fit: BoxFit.cover),
             ),
           ),
         ),
@@ -29,7 +30,7 @@ class CustomBox extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            height: 60,
+            height: v * 0.07,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(10),
@@ -56,7 +57,7 @@ class CustomBox extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: v * 0.0138,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),

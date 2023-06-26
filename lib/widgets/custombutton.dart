@@ -13,6 +13,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
@@ -21,13 +23,14 @@ class CustomButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Container(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 25),
+            padding:
+                EdgeInsets.symmetric(vertical: v * 0.008, horizontal: h * 0.06),
             child: Text(
               btn,
               style: TextStyle(
                 color: btncl,
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: v * 0.0184,
               ),
             ),
           ),

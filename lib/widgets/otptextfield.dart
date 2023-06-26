@@ -9,6 +9,8 @@ class AdvancedOtpTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double v = MediaQuery.of(context).size.height;
+    final double h = MediaQuery.of(context).size.width;
     return PinCodeTextField(
       appContext: context,
       length: 4,
@@ -16,8 +18,8 @@ class AdvancedOtpTextField extends StatelessWidget {
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(8.0),
-        fieldHeight: 60.0,
-        fieldWidth: 60.0,
+        fieldHeight: v * 0.07,
+        fieldWidth: h * 0.146,
         activeFillColor: Colors.white,
         selectedColor: error ? Colors.red : Colors.blue,
         selectedFillColor: Colors.white.withOpacity(0.1),
