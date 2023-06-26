@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/screens/login.dart';
 import 'package:graduation/screens/signup.dart';
@@ -18,7 +19,12 @@ class WelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(
-              height: v * 0.346, child: Image.asset("assets/images/logo.png")),
+              height: v * 0.346,
+              child: CachedNetworkImage(
+                imageUrl: "https://baargeelle.com/grd_imgs/logo.png",
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              )),
           SizedBox(
             width: double.infinity,
             child: Column(

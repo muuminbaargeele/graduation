@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -88,7 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SizedBox(
                       height: v * 0.138,
                       width: h * 0.3,
-                      child: Image.asset("assets/images/logo.png"),
+                      child: CachedNetworkImage(
+                        imageUrl: "https://baargeelle.com/grd_imgs/logo.png",
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                     ),
                   ),
                   Padding(
@@ -144,9 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Don’t have an account?",
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: v * 0.016
-                    ),
+                        fontWeight: FontWeight.w600, fontSize: v * 0.016),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -158,10 +162,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Sign up",
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff0084FF),
-                          fontSize: v * 0.016
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff0084FF),
+                            fontSize: v * 0.016),
                       ),
                     ),
                   ),

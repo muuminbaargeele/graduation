@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomAlert extends StatelessWidget {
@@ -19,7 +20,7 @@ class CustomAlert extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
-                  image: NetworkImage(image), fit: BoxFit.cover),
+                  image: CachedNetworkImageProvider(image), fit: BoxFit.cover),
             ),
           ),
         ),

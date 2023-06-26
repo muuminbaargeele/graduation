@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomBox extends StatelessWidget {
@@ -21,7 +22,7 @@ class CustomBox extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
-                  image: NetworkImage(images), fit: BoxFit.cover),
+                  image: CachedNetworkImageProvider(images), fit: BoxFit.cover),
             ),
           ),
         ),

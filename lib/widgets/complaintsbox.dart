@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintsBox extends StatelessWidget {
@@ -29,7 +30,7 @@ class ComplaintsBox extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
                     image: DecorationImage(
-                        image: AssetImage(image), fit: BoxFit.cover),
+                        image: CachedNetworkImageProvider(image), fit: BoxFit.cover),
                   ),
                 ),
               ),
