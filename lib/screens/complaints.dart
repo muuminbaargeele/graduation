@@ -202,23 +202,29 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
           isLoading
               ? Expanded(child: Center(child: CircularProgressIndicator()))
               : Expanded(
-                  child: ListView.builder(
-                    itemCount: complaints.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                      child: ListBox(
-                        title: complaints[index].ctname,
-                        text: complaints[index].statusDesc,
-                        image:
-                            "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
-                        status: complaints[index].sname,
-                        hex: complaints[index].hexCode,
-                        ontap: () {
-                          showAlertDialog(context, index);
-                        },
-                      ),
-                    ),
-                  ),
+                  child: complaints.isEmpty
+                      ? Center(
+                          child: Text(
+                          "No Complaints",
+                          style: TextStyle(fontSize: v * 0.035),
+                        ))
+                      : ListView.builder(
+                          itemCount: complaints.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                            child: ListBox(
+                              title: complaints[index].ctname,
+                              text: complaints[index].statusDesc,
+                              image:
+                                  "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
+                              status: complaints[index].sname,
+                              hex: complaints[index].hexCode,
+                              ontap: () {
+                                showAlertDialog(context, index);
+                              },
+                            ),
+                          ),
+                        ),
                 )
         ],
       ),

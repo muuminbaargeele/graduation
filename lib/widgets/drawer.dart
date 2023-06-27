@@ -2,14 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation/screens/complaints.dart';
 import 'package:graduation/screens/profile.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../databases/services.dart';
+import '../models/usermodel.dart';
 import '../screens/home.dart';
 import 'selectedbutton.dart';
 
-class DrawerWidgit extends StatelessWidget {
+class DrawerWidgit extends StatefulWidget {
   const DrawerWidgit({super.key, required this.selectedbutton});
 
   final String selectedbutton;
+
+  @override
+  State<DrawerWidgit> createState() => _DrawerWidgitState();
+}
+
+class _DrawerWidgitState extends State<DrawerWidgit> {
+  late Box box;
+  List<User> user = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box('local_storage');
+    callAPIFunction();
+  }
+
+  callAPIFunction() {
+    String username = box.get("username");
+    // Fetch compliaints and update the state
+    fetchuser(username).then((fetchuser) {
+      setState(() {
+        user = fetchuser;
+        isLoading = false;
+      });
+    });
+  }
+
+  String capitalizeFirstLetter(String input) {
+    if (input.isEmpty) {
+      return input;
+    }
+    return input[0].toUpperCase() + input.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +91,28 @@ class DrawerWidgit extends StatelessWidget {
                     width: h * 0.024,
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Faahim",
-                          style: TextStyle(
-                            fontSize: v * 0.0207,
-                            fontWeight: FontWeight.w600,
+                    child: isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                capitalizeFirstLetter(user[0].name),
+                                style: TextStyle(
+                                  fontSize: v * 0.0207,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                user[0].gmail,
+                                style: TextStyle(
+                                    fontSize: v * 0.013,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.black.withOpacity(0.5)),
+                              )
+                            ],
                           ),
-                        ),
-                        Text(
-                          "Faahim144@gmail.com",
-                          style: TextStyle(
-                              fontSize: v * 0.01614,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black.withOpacity(0.5)),
-                        )
-                      ],
-                    ),
                   ),
                 ],
               ),
@@ -90,7 +129,7 @@ class DrawerWidgit extends StatelessWidget {
               ),
               SelectButton(
                 text: "Home",
-                backgroundColor: (selectedbutton == "home")
+                backgroundColor: (widget.selectedbutton == "home")
                     ? Color(0xff0084FF)
                     : Colors.white,
                 icon: FontAwesomeIcons.house,
@@ -98,16 +137,17 @@ class DrawerWidgit extends StatelessWidget {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => HomeScreen()));
                 },
-                padding: (selectedbutton == "home") ? 10 : 0,
-                selectedColor:
-                    (selectedbutton == "home") ? Colors.white : Colors.black,
+                padding: (widget.selectedbutton == "home") ? 10 : 0,
+                selectedColor: (widget.selectedbutton == "home")
+                    ? Colors.white
+                    : Colors.black,
               ),
               SizedBox(
                 height: 20,
               ),
               SelectButton(
                 text: "Complaints",
-                backgroundColor: (selectedbutton == "complaints")
+                backgroundColor: (widget.selectedbutton == "complaints")
                     ? Color(0xff0084FF)
                     : Colors.white,
                 icon: Icons.folder_copy_rounded,
@@ -115,8 +155,8 @@ class DrawerWidgit extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => ComplaintsScreen()));
                 },
-                padding: (selectedbutton == "complaints") ? 10 : 0,
-                selectedColor: (selectedbutton == "complaints")
+                padding: (widget.selectedbutton == "complaints") ? 10 : 0,
+                selectedColor: (widget.selectedbutton == "complaints")
                     ? Colors.white
                     : Colors.black,
               ),
@@ -125,7 +165,7 @@ class DrawerWidgit extends StatelessWidget {
               ),
               SelectButton(
                 text: "Profile",
-                backgroundColor: (selectedbutton == "profile")
+                backgroundColor: (widget.selectedbutton == "profile")
                     ? Color(0xff0084FF)
                     : Colors.white,
                 icon: FontAwesomeIcons.solidUser,
@@ -133,9 +173,10 @@ class DrawerWidgit extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => ProfileScreen()));
                 },
-                padding: (selectedbutton == "profile") ? 10 : 0,
-                selectedColor:
-                    (selectedbutton == "profile") ? Colors.white : Colors.black,
+                padding: (widget.selectedbutton == "profile") ? 10 : 0,
+                selectedColor: (widget.selectedbutton == "profile")
+                    ? Colors.white
+                    : Colors.black,
               ),
             ],
           ),

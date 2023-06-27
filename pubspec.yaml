@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
+  flutter_image_compress: ^2.0.3
   font_awesome_flutter: ^10.4.0
   geocoding: ^2.1.0
   geolocator: ^9.0.2

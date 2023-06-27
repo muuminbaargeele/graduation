@@ -53,6 +53,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
     });
   }
 
+
   submit(district, address, desc, image) async {
     complainValidate(district, address, desc, image);
 
@@ -203,14 +204,20 @@ class _ComplainScreenState extends State<ComplainScreen> {
                           child: Container(
                             height: v * 0.31126,
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
-                                image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        "https://baargeelle.com/grd_imgs/${widget.complaintTypes[widget.index].name}.jpg"),
-                                    fit: BoxFit.cover)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://baargeelle.com/grd_imgs/${widget.complaintTypes[widget.index].name}.jpg",
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
                           ),
                         ),
                         Positioned(
