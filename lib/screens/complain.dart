@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -207,8 +208,8 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                     bottomLeft: Radius.circular(10),
                                     bottomRight: Radius.circular(10)),
                                 image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/${widget.complaintTypes[widget.index].name}.jpg"),
+                                    image: CachedNetworkImageProvider(
+                                        "https://baargeelle.com/grd_imgs/${widget.complaintTypes[widget.index].name}.jpg"),
                                     fit: BoxFit.cover)),
                           ),
                         ),
