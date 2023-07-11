@@ -11,7 +11,7 @@ class LeaveScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String map =
-        "We apologize for any confusion, \nbut our complaint application is currently\n designed and available exclusively for \ncitizens of Somalia.";
+        "We apologize for any confusion, \nbut our complaint application is currently\n designed and available exclusively in \ somalia.";
 
     return Scaffold(
         body: CheckingPAge(

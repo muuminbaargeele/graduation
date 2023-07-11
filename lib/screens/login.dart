@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String passwordError = "";
   bool isLoading = false;
   late Box box;
+  bool eyeOn = true;
 
   loginValidate(username, pass) async {
     setState(() {
@@ -118,14 +119,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputType: TextInputType.name,
                       ),
                       MyTextField(
-                          controller: passwordController,
-                          errorName: passwordError,
-                          padding: v * 0.029,
-                          icon: FontAwesomeIcons.lock,
-                          text: "Password",
-                          textInputType: TextInputType.visiblePassword,
-                          isPassword: true,
-                          topPaddingError: usernameError),
+                        controller: passwordController,
+                        errorName: passwordError,
+                        padding: v * 0.029,
+                        icon: FontAwesomeIcons.lock,
+                        text: "Password",
+                        textInputType: TextInputType.visiblePassword,
+                        isPassword: true,
+                        topPaddingError: usernameError,
+                        eyeOn: eyeOn,
+                        eyeChange: () {
+                          setState(() {
+                            eyeOn = !eyeOn;
+                          });
+                        },
+                      ),
                     ],
                   ),
                   Padding(

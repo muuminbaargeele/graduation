@@ -16,6 +16,8 @@ class MyTextField extends StatelessWidget {
     required this.padding,
     this.isPhone,
     this.height,
+    this.eyeOn,
+    this.eyeChange,
   });
 
   final String? topPaddingError;
@@ -28,6 +30,8 @@ class MyTextField extends StatelessWidget {
   final double padding;
   final double? height;
   final bool? isPhone;
+  final bool? eyeOn;
+  final Function()? eyeChange;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +92,7 @@ class MyTextField extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: v * 0.0034585),
+                    padding: EdgeInsets.only(top: 0),
                     child: TextField(
                       controller: controller,
                       style: TextStyle(fontSize: v * 0.014),
@@ -96,10 +100,31 @@ class MyTextField extends StatelessWidget {
                         hintText: text,
                         border: InputBorder.none,
                       ),
-                      obscureText: isPassword ?? false,
+                      obscureText: eyeOn ?? false,
                       keyboardType: textInputType,
                       maxLines: (text == "Description") ? 19 : 1,
                       maxLength: (text == "Description") ? 500 : null,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: h * 0.02),
+                  child: Visibility(
+                    visible: isPassword ?? false,
+                    child: Container(
+                      height: double.infinity,
+                      width: h * 0.073,
+                      child: Center(
+                        child: InkWell(
+                          onTap: eyeChange,
+                          child: FaIcon(
+                            eyeOn ?? false
+                                ? FontAwesomeIcons.solidEye
+                                : FontAwesomeIcons.solidEyeSlash,
+                            size: v * 0.023,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

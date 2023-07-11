@@ -35,6 +35,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String genderError = "";
   bool isLoading = false;
   late Box box;
+  bool eyeOn = true;
 
   validation(name, gmail, username, pass, district, phone, gender) {
     final RegExp nameRegex = RegExp(r'^[a-zA-Z ]+$');
@@ -64,7 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ? "Please Enter a Password"
           : passwordRegex.hasMatch(pass)
               ? ""
-              : "Week Password";
+              : "Password must be at least 8 characters and contain at least 1 uppercase letter lowercase letter and number";
       districtError = district.isEmpty ? "Please Select a District" : "";
       phoneError = phone.isEmpty
           ? "Please Enter a Phone Number"
@@ -186,14 +187,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     topPaddingError: gmailError,
                   ),
                   MyTextField(
-                      controller: passwordController,
-                      errorName: passwordError,
-                      padding: v * 0.017,
-                      icon: FontAwesomeIcons.lock,
-                      text: "Password",
-                      textInputType: TextInputType.visiblePassword,
-                      isPassword: true,
-                      topPaddingError: usernameError),
+                    controller: passwordController,
+                    errorName: passwordError,
+                    padding: v * 0.017,
+                    icon: FontAwesomeIcons.lock,
+                    text: "Password",
+                    textInputType: TextInputType.visiblePassword,
+                    isPassword: true,
+                    topPaddingError: usernameError,
+                    eyeOn: eyeOn,
+                    eyeChange: () {
+                      setState(() {
+                        eyeOn = !eyeOn;
+                      });
+                    },
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

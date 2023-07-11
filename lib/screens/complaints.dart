@@ -9,6 +9,7 @@ import '../widgets/complaininfo.dart';
 import '../widgets/customalert.dart';
 import '../widgets/drawer.dart';
 import '../widgets/listbox.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ComplaintsScreen extends StatefulWidget {
   const ComplaintsScreen({super.key});
@@ -73,7 +74,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                       ),
                       ComplainInfo(
                         title: "Date",
-                        info: "2 days ago",
+                        info: timeago.format(complaints[index].dateTime),
                       ),
                       Expanded(
                         child: Align(

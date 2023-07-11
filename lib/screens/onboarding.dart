@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     "assets/icons/user_frnd.png",
     "assets/icons/feedbacks.png",
   ];
-  List<String> title = ["Easy To Use", "User Friendly", "Welcomes Feedback"];
+  List<String> title = ["Easy To Use", "User Friendly", "soo dhawaw "];
 
   // Get Location
 
