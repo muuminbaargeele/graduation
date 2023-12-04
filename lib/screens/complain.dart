@@ -210,7 +210,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                   bottomRight: Radius.circular(10)),
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    "https://baargeelle.com/grd_imgs/${widget.complaintTypes[widget.index].name}.jpg",
+                                    "https://graduation-hu.000webhostapp.com/grd_imgs/${widget.complaintTypes[widget.index].name}.jpg",
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) =>
                                     Center(child: CircularProgressIndicator()),

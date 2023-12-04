@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
           SizedBox(
               height: v * 0.346,
               child: CachedNetworkImage(
-                imageUrl: "https://baargeelle.com/grd_imgs/logo.png",
+                imageUrl: "https://graduation-hu.000webhostapp.com/grd_imgs/logo.png",
                 placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               )),

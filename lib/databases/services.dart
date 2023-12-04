@@ -6,7 +6,7 @@ import 'dart:convert';
 import '../models/complaintsmodel.dart';
 import '../models/districtModel.dart';
 
-const String urls = "https://baargeelle.com"; // Host url
+const String urls = "https://graduation-hu.000webhostapp.com/"; // Host url
 // const String urls = "http://192.168.1.3"; // Local url
 
 // Login API

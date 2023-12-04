@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return ComplaintsBox(
                                 text: complaintTypes[index].name,
                                 image:
-                                    "https://baargeelle.com/grd_imgs/${complaintTypes[index].name}.jpg",
+                                    "https://graduation-hu.000webhostapp.com/grd_imgs/${complaintTypes[index].name}.jpg",
                                 ontap: () {
                                   Navigator.push(
                                       context,

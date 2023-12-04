@@ -48,7 +48,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                 child: CustomAlert(
                   text: complaints[index].ctname,
                   image:
-                      "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
+                      "https://graduation-hu.000webhostapp.com/backEnd/uploads/${complaints[index].compImg}",
                 ),
               ),
               Expanded(
@@ -129,11 +129,12 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   void initState() {
     super.initState();
     box = Hive.box('local_storage');
-    startAPICalls();
+    // startAPICalls();
+    callAPIFunction();
   }
 
   void startAPICalls() {
-    timer = Timer.periodic(Duration(seconds: 2), (Timer timer) {
+    timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
       callAPIFunction();
     });
   }
@@ -217,7 +218,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                               title: complaints[index].ctname,
                               text: complaints[index].statusDesc,
                               image:
-                                  "https://baargeelle.com/backEnd/uploads/${complaints[index].compImg}",
+                                  "https://graduation-hu.000webhostapp.com/backEnd/uploads/${complaints[index].compImg}",
                               status: complaints[index].sname,
                               hex: complaints[index].hexCode,
                               ontap: () {

@@ -127,7 +127,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         builder: (context) {
           Future.delayed(Duration(seconds: 2), () {
             Navigator.of(context).pop(true);
-            (_currentAddress == "Somalia, Mogadisho")
+            print(_currentAddress);
+            (_currentAddress!.contains("Somalia"))
                 ? Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => WelcomeScreen()),
                     (Route<dynamic> route) => false)
