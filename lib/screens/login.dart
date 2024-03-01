@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late Box box;
   bool eyeOn = true;
 
-  loginValidate({username, pass}) async {
+  loginValidate(username, pass) async {
     setState(() {
       usernameError = username.isEmpty ? "Please Enter a Username" : "";
       passwordError = pass.isEmpty ? "Please Enter a Password" : "";
@@ -91,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: v * 0.138,
                       width: h * 0.3,
                       child: CachedNetworkImage(
-                        imageUrl: "https://graduation-hu.000webhostapp.com/grd_imgs/logo.png",
+                        imageUrl:
+                            "https://graduation-hu.000webhostapp.com/grd_imgs/logo.png",
                         placeholder: (context, url) =>
                             CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(Icons.error),
@@ -147,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ontap: () {
                           FocusScope.of(context).unfocus();
                           loginValidate(
-                             username: usernameController.text, pass: passwordController.text);
+                              usernameController.text, passwordController.text);
                         }),
                   ),
                 ],
