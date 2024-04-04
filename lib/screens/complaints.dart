@@ -129,8 +129,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   void initState() {
     super.initState();
     box = Hive.box('local_storage');
-    startAPICalls();
-    // callAPIFunction();
+    // startAPICalls();
+    callAPIFunction();
   }
 
   void startAPICalls() {
